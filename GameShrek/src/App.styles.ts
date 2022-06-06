@@ -7,7 +7,7 @@ export const Grid = styled.div`
 `;
 
 export const Background = styled.div`
-  background-image: url("../src/img/MAIN.png");
+  background-image: url("../src/img/shrek-test.png");
   background-size: cover;
   display: flex;
   flex-direction: column;
