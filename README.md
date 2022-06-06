@@ -20,7 +20,7 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 If you want to check the app without launching anything, go to the following link :
-[https://remarkable-sundae-a4545f.netlify.app/](https://remarkable-sundae-a4545f.netlify.app/)
+[https://calm-pavlova-d5f461.netlify.app](https://calm-pavlova-d5f461.netlify.app)
 
 ## Functionality
 

@@ -7,7 +7,7 @@ export const Grid = styled.div`
 `;
 
 export const Background = styled.div`
-  background-image: url("https://kartinkin.net/uploads/posts/2021-03/thumbs/1616044567_33-p-fon-shrek-36.jpg");
+  background-image: url("https://kartinkin.net/uploads/posts/2021-03/1616044518_4-p-fon-shrek-5.png");
   background-size: cover;
   display: flex;
   flex-direction: column;
