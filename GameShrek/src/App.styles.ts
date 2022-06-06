@@ -17,9 +17,18 @@ export const Background = styled.div`
 `;
 
 export const Turns = styled.div`
-  margin-top: 50px;
+  margin-top: 30px;
   font-weight: bold;
   color: white;
   font-size: 40px;
   font-family: "Times New Roman";
+`;
+
+export const PlayButton = styled.button`
+  color: darkslategrey;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid darkslategrey;
+  border-radius: 3px;
 `;

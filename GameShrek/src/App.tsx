@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+
 import { createBoard } from "./setup";
 import { shuffleArray } from "./utils";
 import { CardType } from "./setup";
-import { Grid, Background, Turns } from "./App.styles";
+import { Grid, Background, Turns, PlayButton } from "./App.styles";
 import Card from "./components/Card/Card";
+import song from "./music/shrek_09. Smash Mouth - All Star.mp3";
 
 const App = () => {
   const [cards, setCards] = useState<CardType[]>(shuffleArray(createBoard()));
@@ -14,6 +15,17 @@ const App = () => {
     undefined
   );
   const [turns, setTurns] = useState<number>(0);
+  const music = useMemo(() => new Audio(song), []);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  const playPause = () => {
+    if (isPlaying) {
+      music.pause();
+    } else {
+      music.play();
+    }
+    setIsPlaying((prev) => !prev);
+  };
 
   const handleCardClick = (currentClickedCard: CardType) => {
     setCards((prevState) =>
@@ -71,6 +83,9 @@ const App = () => {
         ))}
       </Grid>
       <Turns>{`Turns: ${turns}`}</Turns>
+      <PlayButton onClick={playPause}>
+        {isPlaying ? "Pause music" : "Play music️️"}
+      </PlayButton>
     </Background>
   );
 };
