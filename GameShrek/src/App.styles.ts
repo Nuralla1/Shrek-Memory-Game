@@ -21,7 +21,7 @@ export const Turns = styled.div`
   font-weight: bold;
   color: white;
   font-size: 40px;
-  font-family: "Times New Roman";
+  font-family: "Times New Roman", sans-serif;
 `;
 
 export const PlayButton = styled.button`
@@ -30,5 +30,12 @@ export const PlayButton = styled.button`
   margin: 1em;
   padding: 0.25em 1em;
   border: 2px solid darkslategrey;
-  border-radius: 3px;
+  border-radius: 10px;
+  transition: all 0.5s;
+  :hover {
+    color: olivedrab;
+    border: 2px solid olivedrab;
+    padding: 0.5em 2em;
+    position: relative;
+  }
 `;
