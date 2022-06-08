@@ -70,7 +70,7 @@ export const Game = () => {
   };
 
   useEffect(() => {
-    if (matchedPairs === cards.length / 8) {
+    if (matchedPairs === cards.length / 2) {
       console.log("WIN");
       setTimeout(() => {
         setGameWon(true);
