@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 0.5rem;
+`;
+
 export const Background = styled.div`
   background-image: url("https://kartinkin.net/uploads/posts/2021-03/1616044518_4-p-fon-shrek-5.png");
   background-size: cover;
@@ -8,6 +14,14 @@ export const Background = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+`;
+
+export const Turns = styled.div`
+  margin-top: 30px;
+  font-weight: bold;
+  color: white;
+  font-size: 40px;
+  font-family: "Times New Roman", sans-serif;
 `;
 
 export const Button = styled.button`
