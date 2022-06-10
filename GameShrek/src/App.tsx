@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React from "react";
 import { Game } from "./components/Game/Game";
 import { GameOver } from "./components/GameOver/GameOver";
 import { Routes, Route } from "react-router-dom";

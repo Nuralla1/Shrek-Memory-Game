@@ -96,7 +96,6 @@ export const Game = () => {
           {isPlaying ? "Pause music" : "Play music️️"}
         </Button>
       </Background>
-      )
     </>
   );
 };
