@@ -6,11 +6,12 @@ import { BackImg, FrontImg, Wrapper } from "./Card.styles";
 type Props = {
   card: CardType;
   callback: (card: CardType) => void;
+  canClick: boolean;
 };
 
-const Card: React.FC<Props> = ({ card, callback }) => {
+const Card: React.FC<Props> = ({ card, callback, canClick }) => {
   const handleClick = () => {
-    if (card.clickable) callback(card);
+    if (card.clickable && canClick) callback(card);
   };
   return (
     <Wrapper onClick={handleClick}>

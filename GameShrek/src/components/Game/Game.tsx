@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { CardType, createBoard } from "../../setup";
 import { shuffleArray } from "../../utils";
 import song from "../../music/shrek_09. Smash Mouth - All Star.mp3";
+import flipSound from "../../music/Card-flip-sound-effect.mp3";
 import { Background, Button, Grid, Turns } from "./Game.styles";
 import Card from "../Card/Card";
 import { useNavigate } from "react-router-dom";
@@ -9,12 +10,14 @@ import { useNavigate } from "react-router-dom";
 export const Game = () => {
   const [cards, setCards] = useState<CardType[]>(shuffleArray(createBoard()));
   const [gameWon, setGameWon] = useState<boolean | undefined>(false);
+  const [canClick, setCanClick] = useState<boolean>(true);
   const [matchedPairs, setMatchedPairs] = useState(0);
   const [clickedCard, setClickedCard] = useState<undefined | CardType>(
     undefined
   );
   const [turns, setTurns] = useState<number>(0);
   const music = useMemo(() => new Audio(song), []);
+  const flipSoundEffect = new Audio(flipSound);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -28,6 +31,8 @@ export const Game = () => {
   };
 
   const handleCardClick = (currentClickedCard: CardType) => {
+    flipSoundEffect.play();
+
     setCards((prevState) =>
       prevState.map((card) =>
         card.id === currentClickedCard.id
@@ -35,12 +40,13 @@ export const Game = () => {
           : card
       )
     );
-
     if (!clickedCard) {
       setClickedCard({ ...currentClickedCard });
       return;
     }
-
+    if (clickedCard) {
+      setCanClick((prev) => !prev);
+    }
     if (clickedCard.matchingCardId === currentClickedCard.id) {
       setMatchedPairs((prev) => prev + 1);
       setTurns((turns) => turns + 1);
@@ -52,12 +58,15 @@ export const Game = () => {
         )
       );
       setClickedCard(undefined);
+      setCanClick((prev) => !prev);
       return;
     }
 
     setTurns((turns) => turns + 1);
 
     setTimeout(() => {
+      flipSoundEffect.play();
+      setCanClick((prev) => !prev);
       setCards((prev) =>
         prev.map((card) =>
           card.id === clickedCard.id || card.id === currentClickedCard.id
@@ -71,7 +80,6 @@ export const Game = () => {
 
   useEffect(() => {
     if (matchedPairs === cards.length / 2) {
-      console.log("WIN");
       setTimeout(() => {
         setGameWon(true);
         music.pause();
@@ -80,7 +88,9 @@ export const Game = () => {
   }, [matchedPairs]);
 
   if (gameWon) {
-    navigate("/gameOver");
+    setTimeout(() => {
+      navigate("/gameOver");
+    }, 0);
   }
 
   return (
@@ -88,7 +98,12 @@ export const Game = () => {
       <Background>
         <Grid>
           {cards.map((card) => (
-            <Card key={card.id} card={card} callback={handleCardClick} />
+            <Card
+              key={card.id}
+              card={card}
+              callback={handleCardClick}
+              canClick={canClick}
+            />
           ))}
         </Grid>
         <Turns>{`Turns: ${turns}`}</Turns>
