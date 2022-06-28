@@ -7,9 +7,13 @@ import { Background, Button, Grid, Turns } from "./Game.styles";
 import Card from "../Card/Card";
 import { useNavigate } from "react-router-dom";
 
+function timeout(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const Game = () => {
   const [cards, setCards] = useState<CardType[]>(shuffleArray(createBoard()));
-  const [gameWon, setGameWon] = useState<boolean | undefined>(false);
+
   const [canClick, setCanClick] = useState<boolean>(true);
   const [matchedPairs, setMatchedPairs] = useState(0);
   const [clickedCard, setClickedCard] = useState<undefined | CardType>(
@@ -30,7 +34,7 @@ export const Game = () => {
     setIsPlaying((prev) => !prev);
   };
 
-  const handleCardClick = (currentClickedCard: CardType) => {
+  const handleCardClick = async (currentClickedCard: CardType) => {
     flipSoundEffect.play();
 
     setCards((prevState) =>
@@ -64,34 +68,30 @@ export const Game = () => {
 
     setTurns((turns) => turns + 1);
 
-    setTimeout(() => {
-      flipSoundEffect.play();
-      setCanClick((prev) => !prev);
-      setCards((prev) =>
-        prev.map((card) =>
-          card.id === clickedCard.id || card.id === currentClickedCard.id
-            ? { ...card, flipped: false, clickable: true }
-            : card
-        )
-      );
-    }, 1000);
+    await timeout(1000);
+    flipSoundEffect.play();
+    setCanClick((prev) => !prev);
+    setCards((prev) =>
+      prev.map((card) =>
+        card.id === clickedCard.id || card.id === currentClickedCard.id
+          ? { ...card, flipped: false, clickable: true }
+          : card
+      )
+    );
+
     setClickedCard(undefined);
   };
 
   useEffect(() => {
-    if (matchedPairs === cards.length / 2) {
-      setTimeout(() => {
-        setGameWon(true);
+    async function test() {
+      if (matchedPairs === cards.length / 8) {
+        await timeout(1000);
         music.pause();
-      }, 1000);
+        navigate("/gameOver");
+      }
     }
+    test();
   }, [matchedPairs]);
-
-  if (gameWon) {
-    setTimeout(() => {
-      navigate("/gameOver");
-    }, 0);
-  }
 
   return (
     <>
